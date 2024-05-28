@@ -1,6 +1,6 @@
 import React from 'react';
-import MainPage from '../pages/MainPage'; // Import MainPage component
-import AllMoviesPage from '../pages/allMovies'; // Import AllMoviesPage component
+import MainPage from '../pages/MainPage'; 
+import AllMoviesPage from '../pages/allMovies'; 
 
 const router = [
     {
@@ -9,7 +9,7 @@ const router = [
     },
     {
         path : '/movies',
-        element : <AllMoviesPage/> // Use AllMoviesPage component
+        element : <AllMoviesPage/> 
     }
 ];
 

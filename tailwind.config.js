@@ -9,7 +9,8 @@ export default {
     extend: {
       fontFamily : {
         oswalid : ["Oswald", 'sans-serif'],
-        ineter : ["Inter", "sans-serif"]
+        ineter : ["Inter", "sans-serif"],
+        roboto : ['Roboto', "sans-serif"]
       }
     },
     screens : {

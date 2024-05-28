@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchTrendingElements } from "../api/apiCalls";
+import { fetchPopularMovies, fetchTrendingElements } from "../api/apiCalls";
+import { ImovieData, ItrendingResponse } from "../types/movieData.types";
 
 const useTrendingListQuery = () => {
-    return useQuery({
-      queryFn: () => fetchTrendingElements(),
+    return useQuery<ItrendingResponse>({
+      queryFn: () => fetchPopularMovies(),
       queryKey: ['useTrendingListQuery',],
     });
   };

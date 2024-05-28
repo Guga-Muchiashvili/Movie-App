@@ -15,3 +15,33 @@ export const fetchTrendingElements = async() => {
         console.error(err);
     }
 }
+
+export const fetchPopularMovies = async() => {
+  try {
+    let res = await fetch('https://api.themoviedb.org/3/movie/popular', options)
+    let data = await res.json()
+    return data
+  } catch (error) {
+    
+  }
+}
+
+export const fetchPopularTvSeries = async() => {
+  try {
+    let res = await fetch('https://api.themoviedb.org/3/tv/popular', options)
+    let data = await res.json()
+    return data
+  } catch (error) {
+    
+  }
+}
+
+export const fetchUpcomingMovies = async () => {
+  try {
+    let res = await fetch('https://api.themoviedb.org/3/movie/upcoming', options)
+    let data = await res.json()
+    return data
+  } catch (error) {
+    
+  }
+}

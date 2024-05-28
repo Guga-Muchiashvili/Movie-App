@@ -9,13 +9,13 @@ import { Link } from 'react-router-dom';
 const NavBar = () => {
 
   const [showModal, setShowModal] = useState(false)
-  const [scrollOpacity, setScrollOpacity] = useState(0);
+  const [scrollOpacity, setScrollOpacity] = useState(0.50);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const maxScroll = 700;
-      const opacity = Math.min(scrollPosition / maxScroll, 1) 
+      const opacity = Math.min(0.5 + scrollPosition / maxScroll, 1) 
       setScrollOpacity(opacity);
     };
 
@@ -35,9 +35,9 @@ const NavBar = () => {
         </div>
         <div className='flex items-center px-10'>
             <ul className='font-oswalid text-white gap-8 hidden md:flex'>
-              <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/movies'}>Movies</Link>
-              <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/'}>Tv series</Link>
-              <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/'}>Genres</Link>
+              <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/movies'} style={{ textShadow: "1px 1px 1px black" }}>Movies</Link>
+              <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/'} style={{ textShadow: "1px 1px 1px black" }}>Tv series</Link>
+              <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/'} style={{ textShadow: "1px 1px 1px black" }}>Genres</Link>
             </ul>
         </div>
         <div className='flex items-center gap-8 text-white text-3xl'>
