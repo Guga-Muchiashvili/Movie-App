@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import NavBar from "../components/navBar";
-import SliderElement from "../components/slider";
+import NavBar from "../components/navBarComponent";
+import SliderElement from "../components/sliderComponent";
 import imdb from "../public/photos/imdb.png";
 import useTrendingListQuery from "../queries/trendingMoviesQuery";
-import { IoPlay } from "react-icons/io5";
 import { fetchPopularMovies } from "../api/apiCalls";
 import usePopularMoviesQuery from "../queries/popularMoviesQuery";
 import usePopularTvShowsQuery from "../queries/popularTvShowsQuery";
 import { Link } from "react-router-dom";
 import upcommingMoviesQuery from "../queries/upcomingMoviesQuery";
-import MovieCardElement from "../components/movieCard";
+import MovieCardElement from "../components/movieCardComponent";
 import { ImovieData } from "../types/movieData.types";
 import TrailerButton from "../elements/trailerButton";
+import LoadingComponent from "../components/loadingComponent";
+import FooterComponent from "../components/footerComponent";
 
 const MainPage = () => {
-  const { data: trendingList,  } =useTrendingListQuery();
+  const { data: trendingList, isLoading  } =useTrendingListQuery();
   const { data: popularMovieList, } =usePopularMoviesQuery();
   const { data: populartvList, } =usePopularTvShowsQuery();
   const { data: upcommingList, } =upcommingMoviesQuery();
@@ -24,8 +25,12 @@ const MainPage = () => {
 
   fetchPopularMovies();
 
+  if(isLoading){
+    return <LoadingComponent/>
+  }
+
   return (
-    <div className="min-h-[400vh] overflow-hidden">
+    <div className="min-h-fit overflow-hidden relative pb-48">
       <NavBar />
       <div className="w-screen h-screen bg-cover flex overflow-hidden justify-start relative">
         <div
@@ -129,8 +134,11 @@ const MainPage = () => {
             setListNumber={setNumberPopularTv}
           />
         </div>
+        
       </div>
+      <FooterComponent/>
     </div>
+    
   );
 };
 

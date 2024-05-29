@@ -10,6 +10,7 @@ const NavBar = () => {
 
   const [showModal, setShowModal] = useState(false)
   const [scrollOpacity, setScrollOpacity] = useState(0.50);
+  const [additionalLinks, setadditionalLinks] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,12 +35,21 @@ const NavBar = () => {
             <h2 className='font-mono text-lg'><Link className='font-oswalid' to={'/'}>GuGa Movies</Link></h2>
         </div>
         <div className='flex items-center px-10'>
-            <ul className='font-oswalid text-white gap-8 hidden md:flex'>
-              <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/movies'} style={{ textShadow: "1px 1px 1px black" }}>Movies</Link>
-              <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/'} style={{ textShadow: "1px 1px 1px black" }}>Tv series</Link>
-              <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/'} style={{ textShadow: "1px 1px 1px black" }}>Genres</Link>
-            </ul>
-        </div>
+    <ul className='font-oswalid text-white gap-8 hidden md:flex'>
+        <li className='relative'>
+            <Link className='hover:text-[#130712] duration-1000 border-white border-spacing-2 transition-all' to={'/movies'} style={{ textShadow: "1px 1px 1px black" }} onMouseEnter={() => setadditionalLinks(true)} onMouseLeave={() => setadditionalLinks(false)}>Movies</Link>
+           {additionalLinks && (
+             <div className='absolute duration-1000 left-1/2 translate-x-[-50%] transition-all group-hover:block bg-gray-900 rounded-lg py-2 flex flex-col w-fit px-4 gap-5'   onMouseEnter={() => setadditionalLinks(true)} onMouseLeave={() => setadditionalLinks(false)}>
+             <Link to={'/movies/popular'} className='block w-24 py-1 px-2 text-white transition-all duration-1000'>Popular</Link>
+             <Link to={'/movies/popular'} className='block w-24 py-1 px-2 text-white'>Now playing</Link>
+             <Link to={'/movies/popular'} className='block w-24 py-1 px-2 text-white'>Top Rated</Link>
+         </div>
+           )}
+        </li>
+        <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/'} style={{ textShadow: "1px 1px 1px black" }}>Tv series</Link>
+        <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/'} style={{ textShadow: "1px 1px 1px black" }}>Genres</Link>
+          </ul>
+      </div>
         <div className='flex items-center gap-8 text-white text-3xl'>
         <IoSearch className='pl-1 md:border-l-[1px] xl:text-xl cursor-pointer' />
         <MdMenu className='text-4xl md:hidden' onClick={() => setShowModal(!showModal)}/>

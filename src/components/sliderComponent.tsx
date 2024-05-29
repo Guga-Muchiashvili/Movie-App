@@ -33,7 +33,7 @@ const SliderElement: React.FC<SliderElementProps> = ({ data, listNumber, setList
   console.log(data)
 
   return (
-    <div className="flex flex-col w-full h-full px-0 md:px-10 justify-end items-start gap-3 absolute bottom-1">
+    <div className="flex flex-col w-full h-full px-0 md:px-10 justify-end items-start gap-3 absolute bottom-1 z-0">
       <div className={`w-40 absolute hidden lg:flex ${ispopular ? "py-10 absolute right-10 top-0" : "releative left-5 top-[-20px]"}`}>
         <IoArrowBackCircleOutline className={` absolute top-1/2 translate-y-[-50%] text-white text-5xl left-3 cursor-pointer ${ispopular ? "left-0" : "right-0" }`} onClick={handlePrevClick} />
         <IoArrowForwardCircleOutline className={`absolute top-1/2 translate-y-[-50%] text-white text-5xl right-3 cursor-pointer ${ispopular ? "right-0" : "right-0" }`} onClick={handleNextClick} />

@@ -45,3 +45,14 @@ export const fetchUpcomingMovies = async () => {
     
   }
 }
+
+export const fetchMovieList = async({type, page } : any) => {
+  try {
+    console.log(type)
+    let res = await fetch(`https://api.themoviedb.org/3/movie/${type}?language=en-US&page=${page}`, options)
+    let data = await res.json()
+    return data
+  } catch (error) {
+
+  }
+}

@@ -8,9 +8,10 @@ const router = [
         element: <MainPage/>,
     },
     {
-        path : '/movies',
+        path : '/movies/:id',
         element : <AllMoviesPage/> 
-    }
+    },
+
 ];
 
 export default router;
