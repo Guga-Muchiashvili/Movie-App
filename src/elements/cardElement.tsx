@@ -1,33 +1,66 @@
-import React from 'react'
+import React, { useState } from "react";
 import imdb from "../public/photos/imdb.png";
-import { ImovieData } from '../types/movieData.types'
-import { IoPlay } from 'react-icons/io5'
+import { ImovieData } from "../types/movieData.types";
+import { IoPlay } from "react-icons/io5";
+import TrailerButton from "./trailerButton";
+import {motion} from 'framer-motion'
 
 interface ImovieCardProps {
-    data : ImovieData
+  data: ImovieData;
+  i : number
 }
 
-const CardElement = ({data} : ImovieCardProps) => {
-    return (
-        <div className='w-full sm:w-5/6 md:1/3 lg:w-[46%] xl:w-80 h-[470px] rounded-sm overflow-hidden bg-black text-white flex flex-col gap-1 font-oswalid text-2xl'>
-            <div className='w-full h-[70%] overflow-hidden'>
-            <img className='w-full h-full rounded-md hover:scale-110 transition-all duration-1000' src={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`} alt="" />
-            </div>
-            <div className='w-full flex items-center pt-2 gap-3'>
-            <h3 className='text-white font-oswalid text-lg '
-                style={{ textShadow: "1px 1px 1px black" }}
-            >{data.title}</h3>
-            <img className='w-10 h-4' src={imdb} alt="" />
-            <h3 className='text-xl'>{data.vote_average.toFixed(1)}</h3>
-            <h3 className='ml-5'>({data.original_language})</h3>
-            </div>
-            <button className="bg-yellow-400 px-1 py-2 lg:py-3 lg:px-4 rounded-md w-fit text-black text-sm font-bold font-sans flex items-center gap-2">
-            <IoPlay />
-                Watch Trailer
-            </button>
-            
-        </div>
-      )
-}
+const CardElement = ({ data, i }: ImovieCardProps) => {
+  const [isHovered, setIsHovered] = useState(false);
 
-export default CardElement
+  return (
+    <motion.div
+      key={i}
+      initial = {{opacity : 0, translateY : -10, scale : 1.05 }}
+      animate ={{opacity : 1, translateY : 0, scale : 1}}
+      transition={{duration : .8, delay : 0.1 * i, ease : "easeInOut"}}
+      className="w-full relative cursor-pointer transition-all duration-1000 sm:w-2/6 md:w-2/5 lg:w-[46%] xl:w-72 h-[400px] rounded-sm overflow-hidden text-white flex flex-col gap-1 font-oswalid text-2xl"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {isHovered && (
+        <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-50 transition-all duration-1000 z-10"></div>
+      )}
+      <div className="w-full h-full overflow-hidden">
+        <img
+          className={`w-full h-full rounded-md transition-all duration-1000 object-cover ${
+            isHovered && "scale-110"
+          }`}
+          src={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
+          alt=""
+        />
+      </div>
+      <div className="w-full flex flex-col items-center pt-2 gap-3 absolute h-full">
+        <h3
+          className={`text-white font-oswalid text-lg transition-all duration-700 ${
+            isHovered ? "text-[32px] text-center px-1 mt-6 z-20" : ""
+          }`}
+          style={{ textShadow: "1px 1px 1px black" }}
+        >
+          {data.title}
+        </h3>
+        {isHovered !== true ? (
+          <>
+            <h3 className="text-lg absolute left-2 bottom-2 bg-black  bg-opacity-60 px-4 rounded-lg py-[2px]">
+              {data?.vote_average.toFixed(1)}
+            </h3>
+            <h3 className="ml-5 text-sm absolute right-2 bottom-2 bg-black  bg-opacity-60 px-4 rounded-lg py-[4px]">
+              ({data.release_date.split("-")[0]})
+            </h3>
+          </>
+        ) : (
+          <div className="w-full h-fit py-8 absolute bottom-0 flex flex-col items-center">
+            <TrailerButton size={'small'} />
+          </div>
+        )}{" "}
+      </div>
+    </motion.div>
+  );
+};
+
+export default CardElement;

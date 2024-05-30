@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { IoArrowBackCircleOutline, IoArrowForwardCircleOutline } from 'react-icons/io5';
 import { ImovieData } from '../types/movieData.types';
+import {motion} from 'framer-motion'
+import TrailerButton from '../elements/trailerButton';
 
 interface SliderElementProps {
   data: ImovieData[] | undefined;
@@ -12,6 +14,10 @@ interface SliderElementProps {
 const SliderElement: React.FC<SliderElementProps> = ({ data, listNumber, setListNumber, ispopular }) => {
   const listRef = useRef<HTMLDivElement>(null);
   const [transformX, setTransformX] = useState<number>(0);
+  const [isclicked, setclicked] = useState<{clicked : boolean, itemInfo : ImovieData | []}>({
+    clicked : false,
+    itemInfo : []
+  })
 
   const handleNextClick = () => {
     if (!listRef.current || !data) return;
@@ -31,21 +37,37 @@ const SliderElement: React.FC<SliderElementProps> = ({ data, listNumber, setList
   };
 
   console.log(data)
-
+  
   return (
-    <div className="flex flex-col w-full h-full px-0 md:px-10 justify-end items-start gap-3 absolute bottom-1 z-0">
-      <div className={`w-40 absolute hidden lg:flex ${ispopular ? "py-10 absolute right-10 top-0" : "releative left-5 top-[-20px]"}`}>
+    <div className="flex flex-col w-full h-full px-0 md:px-10 justify-end items-start gap-3 absolute bottom-1 z-0 overflow-hidden">
+            {!isclicked.clicked ? (
+              <>
+              <div className={`w-40 absolute hidden lg:flex ${ispopular ? "py-10 absolute right-10 top-0" : "releative left-5 top-[-20px]"}`}>
         <IoArrowBackCircleOutline className={` absolute top-1/2 translate-y-[-50%] text-white text-5xl left-3 cursor-pointer ${ispopular ? "left-0" : "right-0" }`} onClick={handlePrevClick} />
         <IoArrowForwardCircleOutline className={`absolute top-1/2 translate-y-[-50%] text-white text-5xl right-3 cursor-pointer ${ispopular ? "right-0" : "right-0" }`} onClick={handleNextClick} />
       </div>
-      <div className={`flex gap-5 w-fit overflow-x-auto lg:overflow-hidden h-3/3 justify-between px-5 items-center ${ispopular ? "pt-20 pb-1" : "" }`} ref={listRef}>
+        <motion.div key={''} initial={{opacity : 0}} animate={{opacity : 1}} transition={{duration : .8}} className={`flex gap-5 w-fit overflow-x-auto lg:overflow-hidden h-3/3 justify-between px-5 items-center ${ispopular ? "pt-20 pb-1" : "" }`} ref={listRef}>
         {data?.map((item: any, i: number) => (
-          <div className="transition-all duration-1000 w-1/8 h-5/6 flex-shrink-0 relative rounded-md hover:scale-125 " style={{ transform: `translateX(-${transformX}px)` }} key={i}>
+          <div className="transition-all duration-1000 w-1/8 h-5/6 flex-shrink-0 relative rounded-md hover:scale-125 " style={{ transform: `translateX(-${transformX}px)` }} key={i} onClick={() => ispopular ? setclicked({clicked : true, itemInfo : item}) : ""}>
             <div className={`w-full h-full cursor-pointer ${i !== listNumber ? "bg-black bg-opacity-40" : "hidden"} absolute top-0 left-0 rounded-md`} onClick={() => setListNumber(i)}></div>
             <img className={`w-full h-full transition-all rounded-lg ${i === listNumber ? "scale-110" : ""}`} src={`https://image.tmdb.org/t/p/original${item?.poster_path}`} alt="" />
           </div>
         ))}
-      </div>
+      </motion.div>
+      </>
+          ) : (
+            <motion.div className='w-full h-[120%] bg-black gap-5 bg-opacity-60 top-0 absolute left-0 rounded-md flex flex-col items-center justify-center'>
+              <motion.h1 initial={{opacity : 0, translateY : -10}} animate={{opacity : 1, translateY : 0}} transition={{duration : .5}} className='text-white font-roboto text-2xl text-center md:text-4xl xl:text-8xl font-extrabold'>
+                {isclicked?.itemInfo?.original_name ? isclicked?.itemInfo?.original_name :  isclicked?.itemInfo?.title}
+              </motion.h1>
+              <TrailerButton size={'normal'}/>
+              <motion.h1 key={'back'} initial={{opacity : 0, }} animate={{opacity : 1,}} transition={{duration : 1.5}} className='text-white cursor-pointer font-oswalid text-2xl' onClick={() => setclicked({clicked : false, itemInfo : []})}>
+              back 
+              </motion.h1>
+              
+            </motion.div>
+          ) }
+      
     </div>
   );
 };

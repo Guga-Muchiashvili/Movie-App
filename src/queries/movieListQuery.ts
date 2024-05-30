@@ -5,7 +5,7 @@ import { ImovieData, ItrendingResponse } from "../types/movieData.types";
 const useMovieListQuery = ({page, type} : any) => {
     return useQuery<ItrendingResponse>({
       queryFn: () => fetchMovieList({page, type}),
-      queryKey: ['useMovieListQuery',],
+      queryKey: ['useMovieListQuery', page, type],
     });
   };
   

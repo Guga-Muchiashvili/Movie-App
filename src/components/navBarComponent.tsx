@@ -29,7 +29,7 @@ const NavBar = () => {
 
 
   return (
-    <div className='w-full h-[8vh]flex items-center justify-between pl-5 pr-5 pos fixed xl:px-16 z-10' style={{ backgroundColor: `rgba(0, 0, 0, ${scrollOpacity})`, display : "flex", height : "7vh" }}>
+    <div className='w-full h-[8vh]flex items-center justify-between pl-5 pr-5 pos fixed xl:px-16 z-40' style={{ backgroundColor: `rgba(0, 0, 0, ${scrollOpacity})`, display : "flex", height : "7vh" }}>
         <div className='flex text-white items-center gap-2'>
             <img className='w-8 h-8' src={logo} alt="" />
             <h2 className='font-mono text-lg'><Link className='font-oswalid' to={'/'}>GuGa Movies</Link></h2>
@@ -37,12 +37,12 @@ const NavBar = () => {
         <div className='flex items-center px-10'>
     <ul className='font-oswalid text-white gap-8 hidden md:flex'>
         <li className='relative'>
-            <Link className='hover:text-[#130712] duration-1000 border-white border-spacing-2 transition-all' to={'/movies'} style={{ textShadow: "1px 1px 1px black" }} onMouseEnter={() => setadditionalLinks(true)} onMouseLeave={() => setadditionalLinks(false)}>Movies</Link>
+            <Link className='hover:text-[#130712] duration-1000 border-white border-spacing-2 transition-all' to={'/'} style={{ textShadow: "1px 1px 1px black" }} onMouseEnter={() => setadditionalLinks(true)} onMouseLeave={() => setadditionalLinks(false)}>Movies</Link>
            {additionalLinks && (
              <div className='absolute duration-1000 left-1/2 translate-x-[-50%] transition-all group-hover:block bg-gray-900 rounded-lg py-2 flex flex-col w-fit px-4 gap-5'   onMouseEnter={() => setadditionalLinks(true)} onMouseLeave={() => setadditionalLinks(false)}>
-             <Link to={'/movies/popular'} className='block w-24 py-1 px-2 text-white transition-all duration-1000'>Popular</Link>
-             <Link to={'/movies/popular'} className='block w-24 py-1 px-2 text-white'>Now playing</Link>
-             <Link to={'/movies/popular'} className='block w-24 py-1 px-2 text-white'>Top Rated</Link>
+             <Link to={'/movie/popular'} className='block w-24 py-1 px-2 text-white transition-all duration-1000'>Popular</Link>
+             <Link to={'/movie/now_playing'} className='block w-24 py-1 px-2 text-white'>Now playing</Link>
+             <Link to={'/movie/top_rated'} className='block w-24 py-1 px-2 text-white'>Top Rated</Link>
          </div>
            )}
         </li>

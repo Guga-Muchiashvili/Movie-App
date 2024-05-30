@@ -8,7 +8,7 @@ const router = [
         element: <MainPage/>,
     },
     {
-        path : '/movies/:id',
+        path : '/movie/:id',
         element : <AllMoviesPage/> 
     },
 

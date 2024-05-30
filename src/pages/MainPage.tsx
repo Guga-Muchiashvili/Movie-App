@@ -64,7 +64,7 @@ const MainPage = () => {
             >
               {trendingList?.results[listNumber]?.overview}
             </h3>
-            <TrailerButton/>
+            <TrailerButton size={'normal'}/>
           </div>
           <div className="h-2/6 absolute bottom-1 w-full">
             <SliderElement
@@ -98,12 +98,15 @@ const MainPage = () => {
             backgroundSize: "cover",
           }}
         >
+          <div className="flex gap-5 absolute top-0 w-full items-end px-14 h-fit py-8">
           <h1
-            className="text-white text-3xl md:text-5xl font-oswalid absolute top-4 left-10"
+            className="text-white text-3xl md:text-5xl font-oswalid top-4 left-10"
             style={{ textShadow: "1px 1px 1px black" }}
           >
             Popular Moviess
           </h1>
+          <Link className="text-white cursor-pointer z-20" to={'/movie/popular'}>See all</Link>
+          </div>
           <SliderElement
             data={popularMovieList?.results}
             listNumber={listNumberPopularMovie}
