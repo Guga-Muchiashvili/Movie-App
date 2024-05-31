@@ -11,28 +11,28 @@ import { IoArrowBackCircleOutline, IoArrowForwardCircleOutline } from 'react-ico
 
 const AllMoviesPage = () => {
   const { id } = useParams();
+  const { type } = useParams();
   const [page, setPage] = useState(1);
-  const { data } = useMovieListQuery({ type: id, page });
-  const totalPages = data?.total_pages || 1; // Default to 1 if total_pages is not available
-  const paginationRef = useRef(null);
+  const { data } = useMovieListQuery({ type: id, page, mut : type  });
+  const totalPages = data?.total_pages || 1;
+  const paginationRef = useRef<HTMLDivElement>(null);
+  const [translateX, setTranslateX] = useState<number>(0)
 
-  useEffect(() => {
-    if (paginationRef.current) {
-      paginationRef?.current.style.transform = `translateX(${-(page - 1) * 40}px)`; // 40 is the width of each button
-    }
-  }, [page]);
 
-  const handleNextClick = () => {
-    if (page < totalPages) {
-      setPage(page + 1);
-    }
-  };
 
   const handlePrevClick = () => {
-    if (page > 1) {
-      setPage(page - 1);
+    if (translateX > 1) {
+      setTranslateX(translateX - 60);
     }
   };
+
+  const handleNextClick = () => {
+    const paginationWidth = paginationRef.current?.getBoundingClientRect().width;
+    if (paginationWidth && translateX < paginationWidth) {
+        setTranslateX(translateX + 60);
+    }
+};
+
 
   const handlePageChange = (newPage : any) => {
     setPage(newPage);
@@ -49,7 +49,7 @@ const AllMoviesPage = () => {
           ))}
         </div>
         {/* Slider */}
-        <div className='flex w-1/3 gap-5 z-10'>      
+        <div className='flex w-4/5 md:w-3/5 lg:w-1/3 xl:w-1/4 gap-5 z-10'>      
         <IoArrowBackCircleOutline
             className={`text-white text-5xl cursor-pointer mt-4`}
             onClick={handlePrevClick}
@@ -57,8 +57,8 @@ const AllMoviesPage = () => {
         <div className="flex items-center gap-3 w-full overflow-x-hidden">
           <div
             ref={paginationRef}
-            className='flex mt-5 transition-transform duration-300'
-            style={{ display: 'flex', transform: `translateX(${-(page - 1) * 40}px)` }}
+            className='flex mt-5  transition-all duration-700'
+            style={{ display: 'flex', transform: `translateX(${-translateX}px)` }}
           >
             {Array.from({ length: totalPages }, (_, index) => (
               <button

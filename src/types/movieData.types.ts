@@ -3,6 +3,7 @@ export interface ImovieData {
   backdrop_path: string;
   genre_ids: number[];
   id: number;
+  name? : string;
   media_type: string;
   original_language: string;
   original_title: string;

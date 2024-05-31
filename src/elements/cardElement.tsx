@@ -13,6 +13,8 @@ interface ImovieCardProps {
 const CardElement = ({ data, i }: ImovieCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  console.log(data)
+
   return (
     <motion.div
       key={i}
@@ -42,7 +44,7 @@ const CardElement = ({ data, i }: ImovieCardProps) => {
           }`}
           style={{ textShadow: "1px 1px 1px black" }}
         >
-          {data.title}
+          {data.title || data?.name}
         </h3>
         {isHovered !== true ? (
           <>
@@ -50,7 +52,7 @@ const CardElement = ({ data, i }: ImovieCardProps) => {
               {data?.vote_average.toFixed(1)}
             </h3>
             <h3 className="ml-5 text-sm absolute right-2 bottom-2 bg-black  bg-opacity-60 px-4 rounded-lg py-[4px]">
-              ({data.release_date.split("-")[0]})
+              ({data.release_date?.split("-")[0]})
             </h3>
           </>
         ) : (

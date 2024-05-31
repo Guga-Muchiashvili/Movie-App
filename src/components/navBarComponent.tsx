@@ -11,7 +11,7 @@ const NavBar = () => {
   const [showModal, setShowModal] = useState(false)
   const [scrollOpacity, setScrollOpacity] = useState(0.50);
   const [additionalLinks, setadditionalLinks] = useState(false)
-
+  const [additionaltvseries, setadditionaltvseries] = useState(false)
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -39,14 +39,24 @@ const NavBar = () => {
         <li className='relative'>
             <Link className='hover:text-[#130712] duration-1000 border-white border-spacing-2 transition-all' to={'/'} style={{ textShadow: "1px 1px 1px black" }} onMouseEnter={() => setadditionalLinks(true)} onMouseLeave={() => setadditionalLinks(false)}>Movies</Link>
            {additionalLinks && (
-             <div className='absolute duration-1000 left-1/2 translate-x-[-50%] transition-all group-hover:block bg-gray-900 rounded-lg py-2 flex flex-col w-fit px-4 gap-5'   onMouseEnter={() => setadditionalLinks(true)} onMouseLeave={() => setadditionalLinks(false)}>
+          <div className='absolute duration-1000 left-1/2 translate-x-[-50%] transition-all group-hover:block bg-gray-900 rounded-lg py-2 flex flex-col w-fit px-4 gap-5'   onMouseEnter={() => setadditionalLinks(true)} onMouseLeave={() => setadditionalLinks(false)}>
              <Link to={'/movie/popular'} className='block w-24 py-1 px-2 text-white transition-all duration-1000'>Popular</Link>
              <Link to={'/movie/now_playing'} className='block w-24 py-1 px-2 text-white'>Now playing</Link>
              <Link to={'/movie/top_rated'} className='block w-24 py-1 px-2 text-white'>Top Rated</Link>
-         </div>
+          </div>
            )}
         </li>
-        <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/'} style={{ textShadow: "1px 1px 1px black" }}>Tv series</Link>
+        <li className="releative">
+        <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/'} style={{ textShadow: "1px 1px 1px black" }} onMouseEnter={() => setadditionaltvseries(true)} onMouseLeave={() => setadditionaltvseries(false)}>Tv series</Link>
+        {additionaltvseries && (
+        <div className='absolute duration-1000 left-4/5 translate-x-[-50%] transition-all group-hover:block bg-gray-900 rounded-lg py-2 flex flex-col w-fit px-4 gap-5'   onMouseEnter={() => setadditionaltvseries(true)}>
+        <Link to={'/tv/airing_today'} className='block w-24 py-1 px-2 text-white transition-all duration-1000'>Airing Today</Link>
+        <Link to={'/tv/on_the_air'} className='block w-24 py-1 px-2 text-white'>on the air</Link>
+        <Link to={'/tv/top_rated'} className='block w-24 py-1 px-2 text-white'>Top Rated</Link>
+        </div>
+        )}
+        </li>
+        
         <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/'} style={{ textShadow: "1px 1px 1px black" }}>Genres</Link>
           </ul>
       </div>
