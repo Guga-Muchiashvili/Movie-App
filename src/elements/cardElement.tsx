@@ -33,7 +33,7 @@ const CardElement = ({ data, i }: ImovieCardProps) => {
           className={`w-full h-full rounded-md transition-all duration-1000 object-cover ${
             isHovered && "scale-110"
           }`}
-          src={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
+          src={data?.backdrop_path ? `https://image.tmdb.org/t/p/original${data?.backdrop_path}` : "https://www.shepherdsearchgroup.com/wp-content/themes/shepherd/images/no-image-found-360x250.png"}
           alt=""
         />
       </div>
@@ -57,7 +57,7 @@ const CardElement = ({ data, i }: ImovieCardProps) => {
           </>
         ) : (
           <div className="w-full h-fit py-8 absolute bottom-0 flex flex-col items-center">
-            <TrailerButton size={'small'} />
+            <TrailerButton data={data} size={'small'} />
           </div>
         )}{" "}
       </div>

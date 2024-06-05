@@ -1,6 +1,7 @@
 import React from 'react';
 import MainPage from '../pages/MainPage'; 
 import AllMoviesPage from '../pages/allMovies'; 
+import MovieDetailPage from '../pages/movieDetailPage';
 
 const router = [
     {
@@ -9,9 +10,12 @@ const router = [
     },
     {
         path : '/:type/:id',
-        element : <AllMoviesPage/> 
+        element : <AllMoviesPage/>,
     },
-
+    {
+        path : '/movieInfo/:id',
+        element : <MovieDetailPage/>
+    }
 ];
 
 export default router;

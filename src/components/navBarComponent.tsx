@@ -49,7 +49,7 @@ const NavBar = () => {
         <li className="releative">
         <Link className='hover:border-b-2 duration-1000 border-white border-spacing-2' to={'/'} style={{ textShadow: "1px 1px 1px black" }} onMouseEnter={() => setadditionaltvseries(true)} onMouseLeave={() => setadditionaltvseries(false)}>Tv series</Link>
         {additionaltvseries && (
-        <div className='absolute duration-1000 left-4/5 translate-x-[-50%] transition-all group-hover:block bg-gray-900 rounded-lg py-2 flex flex-col w-fit px-4 gap-5'   onMouseEnter={() => setadditionaltvseries(true)}>
+        <div className='absolute duration-1000 left-4/5 translate-x-[-50%] transition-all group-hover:block bg-gray-900 rounded-lg py-2 flex flex-col w-fit px-4 gap-5'   onMouseEnter={() => setadditionaltvseries(true)}  onMouseLeave={() => setadditionaltvseries(false)}>
         <Link to={'/tv/airing_today'} className='block w-24 py-1 px-2 text-white transition-all duration-1000'>Airing Today</Link>
         <Link to={'/tv/on_the_air'} className='block w-24 py-1 px-2 text-white'>on the air</Link>
         <Link to={'/tv/top_rated'} className='block w-24 py-1 px-2 text-white'>Top Rated</Link>

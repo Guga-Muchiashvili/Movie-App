@@ -17,10 +17,7 @@ const MovieCardElement = ({data} : ImovieCardProps) => {
     >
         <div className={`w-full h-[80%] overflow-hidden relative`}>
         {isHovered && <div className='w-full h-full bg-black bg-opacity-50 flex items-center justify-center duration-700 transition-all absolute left-0 top-0 z-20 pointer-events-auto'>
-        <button className="bg-yellow-400 px-1 py-2 lg:py-3 lg:px-4 rounded-md w-fit text-black text-sm font-bold font-sans flex items-center gap-2">
-        <IoPlay />
-            Watch Trailer
-        </button>
+        <TrailerButton data={data} size='sm'/>
         </div>}
         <img className={`w-full h-full rounded-md cursor-pointer transition-all duration-1000 ${isHovered ? "scale-110" : ""}`} src={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`} alt="" />
         </div>

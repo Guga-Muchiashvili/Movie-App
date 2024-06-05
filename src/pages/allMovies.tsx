@@ -19,6 +19,10 @@ const AllMoviesPage = () => {
   const paginationRef = useRef<HTMLDivElement>(null);
   const [translateX, setTranslateX] = useState<number>(0)
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  },[id, page])
+
 
 
   const handlePrevClick = () => {
@@ -29,7 +33,7 @@ const AllMoviesPage = () => {
 
   const handleNextClick = () => {
     const paginationWidth = paginationRef.current?.getBoundingClientRect().width;
-    if (paginationWidth && translateX < paginationWidth) {
+    if (paginationWidth && translateX < paginationWidth - 350) {
         setTranslateX(translateX + 60);
     }
 };
@@ -66,7 +70,7 @@ const AllMoviesPage = () => {
             {Array.from({ length: totalPages }, (_, index) => (
               <button
                 key={index}
-                className={`mx-1 px-2 py-1 rounded-full border border-gray-300 ${
+                className={`mx-1 px-2 py-1 w-10 h-10 rounded-full border border-gray-300 ${
                   index + 1 === page ? 'bg-blue-500 text-white' : 'bg-white text-gray-500'
                 } hover:bg-blue-600 focus:outline-none`}
                 onClick={() => handlePageChange(index + 1)}

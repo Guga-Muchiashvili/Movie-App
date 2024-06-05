@@ -50,7 +50,7 @@ const SliderElement: React.FC<SliderElementProps> = ({ data, listNumber, setList
         {data?.map((item: any, i: number) => (
           <div className="transition-all duration-1000 w-1/8 h-5/6 flex-shrink-0 relative rounded-md hover:scale-125 " style={{ transform: `translateX(-${transformX}px)` }} key={i} onClick={() => ispopular ? setclicked({clicked : true, itemInfo : item}) : ""}>
             <div className={`w-full h-full cursor-pointer ${i !== listNumber ? "bg-black bg-opacity-40" : "hidden"} absolute top-0 left-0 rounded-md`} onClick={() => setListNumber(i)}></div>
-            <img className={`w-full h-full transition-all rounded-lg ${i === listNumber ? "scale-110" : ""}`} src={`https://image.tmdb.org/t/p/original${item?.poster_path}`} alt="" />
+            <img loading='lazy' className={`w-full h-full transition-all rounded-lg ${i === listNumber ? "scale-110" : ""}`} src={`https://image.tmdb.org/t/p/original${item?.poster_path}`} alt="" />
           </div>
         ))}
       </motion.div>
@@ -58,9 +58,9 @@ const SliderElement: React.FC<SliderElementProps> = ({ data, listNumber, setList
           ) : (
             <motion.div className='w-full h-[120%] bg-black gap-5 bg-opacity-60 top-0 absolute left-0 rounded-md flex flex-col items-center justify-center'>
               <motion.h1 initial={{opacity : 0, translateY : -10}} animate={{opacity : 1, translateY : 0}} transition={{duration : .5}} className='text-white font-roboto text-2xl text-center md:text-4xl xl:text-8xl font-extrabold'>
-                {isclicked?.itemInfo?.original_name ? isclicked?.itemInfo?.original_name :  isclicked?.itemInfo?.title}
+              {isclicked?.itemInfo && ('original_name' in isclicked.itemInfo) ? isclicked.itemInfo.original_name : ''}
               </motion.h1>
-              <TrailerButton size={'normal'}/>
+              <TrailerButton data={data} size={'normal'}/>
               <motion.h1 key={'back'} initial={{opacity : 0, }} animate={{opacity : 1,}} transition={{duration : 1.5}} className='text-white cursor-pointer font-oswalid text-2xl' onClick={() => setclicked({clicked : false, itemInfo : []})}>
               back 
               </motion.h1>

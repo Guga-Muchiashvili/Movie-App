@@ -56,3 +56,22 @@ export const fetchMovieList = async({type, page, mut } : any) => {
 
   }
 }
+
+export const fetchMovidewithId = async({id} : {id : string}) => {
+  try {
+    let res = await fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
+    let data = await res.json()
+    return data
+  } catch (error) {
+
+  }
+}
+export const fetchCreditswithMovide = async({id} : {id : string}) => {
+  try {
+    let res = await fetch(`https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`, options)
+    let data = await res.json()
+    return data
+  } catch (error) {
+
+  }
+}

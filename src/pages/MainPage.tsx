@@ -64,7 +64,7 @@ const MainPage = () => {
             >
               {trendingList?.results[listNumber]?.overview}
             </h3>
-            <TrailerButton size={'normal'}/>
+            <TrailerButton data={trendingList && trendingList?.results[listNumber]} size={'normal'}/>
           </div>
           <div className="h-2/6 absolute bottom-1 w-full">
             <SliderElement
