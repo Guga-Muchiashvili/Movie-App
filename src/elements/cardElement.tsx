@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import imdb from "../public/photos/imdb.png";
-import { ImovieData } from "../types/movieData.types";
+import { IMovieDetails, ImovieData } from "../types/movieData.types";
 import { IoPlay } from "react-icons/io5";
 import TrailerButton from "./trailerButton";
 import {motion} from 'framer-motion'
+import { useParams } from "react-router";
 
 interface ImovieCardProps {
-  data: ImovieData;
-  i : number
+  data: ImovieData ;
+  i: number
 }
 
 const CardElement = ({ data, i }: ImovieCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const {type} = useParams()
 
   console.log(data)
 
@@ -26,9 +28,9 @@ const CardElement = ({ data, i }: ImovieCardProps) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {isHovered && (
-        <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-50 transition-all duration-1000 z-10"></div>
+        <div className="absolute top-0 left-0 h-full w-full  bg-opacity-50 transition-all duration-1000 z-10"></div>
       )}
-      <div className="w-full h-full overflow-hidden">
+      <div className="w-full h-full  ">
         <img
           className={`w-full h-full rounded-md transition-all duration-1000 object-cover ${
             isHovered && "scale-110"
@@ -37,27 +39,27 @@ const CardElement = ({ data, i }: ImovieCardProps) => {
           alt=""
         />
       </div>
-      <div className="w-full flex flex-col items-center pt-2 gap-3 absolute h-full">
+      <div className="w-full flex flex-col items-center pt-2 gap-3 absolute z-30 h-full " >
         <h3
           className={`text-white font-oswalid text-lg transition-all duration-700 ${
             isHovered ? "text-[32px] text-center px-1 mt-6 z-20" : ""
           }`}
           style={{ textShadow: "1px 1px 1px black" }}
         >
-          {data.title || data?.name}
+          { data?.original_name}
         </h3>
         {isHovered !== true ? (
           <>
-            <h3 className="text-lg absolute left-2 bottom-2 bg-black  bg-opacity-60 px-4 rounded-lg py-[2px]">
+            <h3 className="text-lg absolute left-2 bottom-2 z-20  bg-opacity-60 px-4 rounded-lg py-[2px]">
               {data?.vote_average.toFixed(1)}
             </h3>
-            <h3 className="ml-5 text-sm absolute right-2 bottom-2 bg-black  bg-opacity-60 px-4 rounded-lg py-[4px]">
-              ({data.release_date?.split("-")[0]})
+            <h3 className="ml-5 text-sm absolute z-20 right-2 bottom-2   bg-opacity-60 px-4 rounded-lg py-[4px]">
+              ({data?.release_date?.split("-")[0]})
             </h3>
           </>
         ) : (
           <div className="w-full h-fit py-8 absolute bottom-0 flex flex-col items-center">
-            <TrailerButton data={data} size={'small'} />
+            <TrailerButton type={type} data={data} size={'small'} />
           </div>
         )}{" "}
       </div>

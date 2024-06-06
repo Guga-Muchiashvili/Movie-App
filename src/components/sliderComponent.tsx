@@ -8,10 +8,11 @@ interface SliderElementProps {
   data: ImovieData[] | undefined;
   listNumber: number;
   setListNumber: React.Dispatch<React.SetStateAction<number>>;
-  ispopular? :boolean
+  ispopular? :boolean,
+  type : string
 }
 
-const SliderElement: React.FC<SliderElementProps> = ({ data, listNumber, setListNumber, ispopular }) => {
+const SliderElement: React.FC<SliderElementProps> = ({ data, listNumber, setListNumber, ispopular, type }) => {
   const listRef = useRef<HTMLDivElement>(null);
   const [transformX, setTransformX] = useState<number>(0);
   const [isclicked, setclicked] = useState<{clicked : boolean, itemInfo : ImovieData | []}>({
@@ -60,7 +61,7 @@ const SliderElement: React.FC<SliderElementProps> = ({ data, listNumber, setList
               <motion.h1 initial={{opacity : 0, translateY : -10}} animate={{opacity : 1, translateY : 0}} transition={{duration : .5}} className='text-white font-roboto text-2xl text-center md:text-4xl xl:text-8xl font-extrabold'>
               {isclicked?.itemInfo && ('original_name' in isclicked.itemInfo) ? isclicked.itemInfo.original_name : ''}
               </motion.h1>
-              <TrailerButton data={data} size={'normal'}/>
+              <TrailerButton type={type} data={data[listNumber]} size={'normal'}/>
               <motion.h1 key={'back'} initial={{opacity : 0, }} animate={{opacity : 1,}} transition={{duration : 1.5}} className='text-white cursor-pointer font-oswalid text-2xl' onClick={() => setclicked({clicked : false, itemInfo : []})}>
               back 
               </motion.h1>

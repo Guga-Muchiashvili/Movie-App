@@ -40,9 +40,9 @@ const MainPage = () => {
             backgroundAttachment: "fixed",
           }}
         >
-          <div className="w-6/7 md:w-5/7 lg:w-6/7 xl:w-3/4 px-2 md:px-20 flex flex-col gap-6 lg:px-20 items-start">
+          <div className="w-6/7 py-8 md:w-5/7 lg:w-6/7 xl:w-3/4 px-2 md:px-20 flex flex-col gap-3 lg:px-20 items-start">
             <h1
-              className="text-4xl lg:text-7xl xl:text-8xl font-oswalid  text-white "
+              className="text-4xl lg:text-6xl xl:text-6xl font-oswalid  text-white "
               style={{ textShadow: "1px 1px 1px black" }}
             >
               {trendingList?.results[listNumber]?.title
@@ -59,15 +59,16 @@ const MainPage = () => {
               </p>
             </div>
             <h3
-              className="text-white text-sm md:text-md xl:text-lg font-ineter"
+              className="text-white text-[12px] md:text-md xl:text-md font-ineter"
               style={{ textShadow: "1px 1px 1px black" }}
             >
               {trendingList?.results[listNumber]?.overview}
             </h3>
-            <TrailerButton data={trendingList && trendingList?.results[listNumber]} size={'normal'}/>
+            <TrailerButton type={'movie'} data={trendingList && trendingList?.results[listNumber]} size={'normal'}/>
           </div>
           <div className="h-2/6 absolute bottom-1 w-full">
             <SliderElement
+              type={'movie'}
               data={trendingList?.results}
               listNumber={listNumber}
               setListNumber={setListNumber}
@@ -84,7 +85,7 @@ const MainPage = () => {
         <h1 className="text-xl md:text-3xl lg:text-5xl xl:text-6xl tracking-wider text-left w-full le font-roboto font-extrabold text-white">Upcomming Movies</h1>
         <div className="flex flex-wrap w-full h-full gap-10 justify-center md:justify-around lg:justify-between ">
         {upcommingList?.results.slice(0, 6).map((item: ImovieData, i: number) => (
-          <MovieCardElement key={i} data={item} />
+          <MovieCardElement type={'movie'} key={i} data={item} />
         ))}
         </div>
       </div>
@@ -112,6 +113,7 @@ const MainPage = () => {
             listNumber={listNumberPopularMovie}
             ispopular={true}
             setListNumber={setNumberPopularMovie}
+            type={'movie'}
           />
         </div>
 
@@ -135,6 +137,7 @@ const MainPage = () => {
             listNumber={listNumberPopularTv}
             ispopular={true}
             setListNumber={setNumberPopularTv}
+            type={'tv'}
           />
         </div>
         

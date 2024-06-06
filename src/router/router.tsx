@@ -13,7 +13,7 @@ const router = [
         element : <AllMoviesPage/>,
     },
     {
-        path : '/movieInfo/:id',
+        path : '/detail/:type/:id',
         element : <MovieDetailPage/>
     }
 ];
