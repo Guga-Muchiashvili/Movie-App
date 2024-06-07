@@ -3,18 +3,21 @@ import { IoArrowBackCircleOutline, IoArrowForwardCircleOutline } from 'react-ico
 import { ImovieData } from '../types/movieData.types';
 import {motion} from 'framer-motion'
 import TrailerButton from '../elements/trailerButton';
+import { useNavigate } from 'react-router';
 
 interface SliderElementProps {
   data: ImovieData[] | undefined;
-  listNumber: number;
-  setListNumber: React.Dispatch<React.SetStateAction<number>>;
+  listNumber?: number;
+  setListNumber?: React.Dispatch<React.SetStateAction<number>>;
   ispopular? :boolean,
-  type : string
+  type : string,
+  isDetail?: boolean
 }
 
-const SliderElement: React.FC<SliderElementProps> = ({ data, listNumber, setListNumber, ispopular, type }) => {
+const SliderElement: React.FC<SliderElementProps> = ({ data, listNumber, setListNumber, ispopular, type, isDetail }) => {
   const listRef = useRef<HTMLDivElement>(null);
   const [transformX, setTransformX] = useState<number>(0);
+  const navigate = useNavigate()
   const [isclicked, setclicked] = useState<{clicked : boolean, itemInfo : ImovieData | []}>({
     clicked : false,
     itemInfo : []
@@ -47,9 +50,9 @@ const SliderElement: React.FC<SliderElementProps> = ({ data, listNumber, setList
         <IoArrowBackCircleOutline className={` absolute top-1/2 translate-y-[-50%] text-white text-5xl left-3 cursor-pointer ${ispopular ? "left-0" : "right-0" }`} onClick={handlePrevClick} />
         <IoArrowForwardCircleOutline className={`absolute top-1/2 translate-y-[-50%] text-white text-5xl right-3 cursor-pointer ${ispopular ? "right-0" : "right-0" }`} onClick={handleNextClick} />
       </div>
-        <motion.div key={''} initial={{opacity : 0}} animate={{opacity : 1}} transition={{duration : .8}} className={`flex gap-5 w-fit overflow-x-auto lg:overflow-hidden h-3/3 justify-between px-5 items-center ${ispopular ? "pt-20 pb-1" : "" }`} ref={listRef}>
+        <motion.div id='scrollbar' key={''} initial={{opacity : 0}} animate={{opacity : 1}} transition={{duration : .8}} className={`flex gap-5 w-fit overflow-x-auto lg:${isDetail ? "overflow-x-auto" : "overflow-hidden"} h-3/3 justify-between px-5 items-center ${ispopular ? "pt-20 pb-1" : "" }`} ref={listRef}>
         {data?.map((item: any, i: number) => (
-          <div className="transition-all duration-1000 w-1/8 h-5/6 flex-shrink-0 relative rounded-md hover:scale-125 " style={{ transform: `translateX(-${transformX}px)` }} key={i} onClick={() => ispopular ? setclicked({clicked : true, itemInfo : item}) : ""}>
+          <div className="transition-all duration-1000 w-1/8 h-5/6 flex-shrink-0 relative rounded-md hover:scale-125 " style={{ transform: `translateX(-${transformX}px)` }} key={i} onClick={() => ispopular ? setclicked({clicked : true, itemInfo : item}) : isDetail ? navigate(`/detail/${type}/${item.id}}`) : "" }>
             <div className={`w-full h-full cursor-pointer ${i !== listNumber ? "bg-black bg-opacity-40" : "hidden"} absolute top-0 left-0 rounded-md`} onClick={() => setListNumber(i)}></div>
             <img loading='lazy' className={`w-full h-full transition-all rounded-lg ${i === listNumber ? "scale-110" : ""}`} src={`https://image.tmdb.org/t/p/original${item?.poster_path}`} alt="" />
           </div>

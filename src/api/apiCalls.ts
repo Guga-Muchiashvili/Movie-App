@@ -77,3 +77,13 @@ export const fetchCreditswithMovide = async({id, type} : {id : string, type : st
 
   }
 }
+
+export const fetchSimilar = async({id, type} : {id : string, type : string}) => {
+  try {
+    let res = await fetch(`https://api.themoviedb.org/3/${type}/${id}/similar?language=en-US&page=1`, options)
+    let data = await res.json()
+    return data
+  } catch (error) {
+
+  }
+}
