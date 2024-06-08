@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchPopularTvSeries, fetchTrendingElements } from "../api/apiCalls";
+import { fetchPopularTvSeries, fetchTrendingElements } from "../actions/api/apiCalls";
 import { ImovieData, ItrendingResponse } from "../types/movieData.types";
 
 const usePopularTvShowsQuery = () => {

@@ -2,6 +2,7 @@ import React from 'react';
 import MainPage from '../pages/MainPage'; 
 import AllMoviesPage from '../pages/allMovies'; 
 import MovieDetailPage from '../pages/movieDetailPage';
+import PersonDataPage from '../pages/personDataPage';
 
 const router = [
     {
@@ -15,6 +16,10 @@ const router = [
     {
         path : '/detail/:type/:id',
         element : <MovieDetailPage/>
+    },
+    {
+        path : "/person/:id",
+        element : <PersonDataPage />
     }
 ];
 

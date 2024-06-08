@@ -57,7 +57,7 @@ export const fetchMovieList = async({type, page, mut } : any) => {
   }
 }
 
-export const fetchMovidewithId = async({id, type} : {id : string, type : string}) => {
+export const fetchMovidewithId = async({id, type} : {id : string | undefined, type : string | undefined}) => {
   try {
     let res = await fetch(`https://api.themoviedb.org/3/${type}/${id}?language=en-US`, options)
     let data = await res.json()
@@ -68,7 +68,7 @@ export const fetchMovidewithId = async({id, type} : {id : string, type : string}
 }
 
 
-export const fetchCreditswithMovide = async({id, type} : {id : string, type : string}) => {
+export const fetchCreditswithMovide = async({id, type} : {id : string | undefined, type : string | undefined}) => {
   try {
     let res = await fetch(`https://api.themoviedb.org/3/${type}/${id}/credits?language=en-US`, options)
     let data = await res.json()
@@ -78,7 +78,7 @@ export const fetchCreditswithMovide = async({id, type} : {id : string, type : st
   }
 }
 
-export const fetchSimilar = async({id, type} : {id : string, type : string}) => {
+export const fetchSimilar = async({id, type} : {id : string | undefined, type : string | undefined}) => {
   try {
     let res = await fetch(`https://api.themoviedb.org/3/${type}/${id}/similar?language=en-US&page=1`, options)
     let data = await res.json()
@@ -87,3 +87,56 @@ export const fetchSimilar = async({id, type} : {id : string, type : string}) => 
 
   }
 }
+
+export const fetchPersomImages = async({id, } : {id : number}) => {
+  try {
+    let res = await fetch(`https://api.themoviedb.org/3/person/${id}/images`, options)
+    console.log(res)
+    let data = await res.json()
+    return data
+  } catch (error) {
+
+  }
+}
+
+export const fetchGenres = async({type} : {type : number}) => {
+  try {
+    let res = await fetch(`https://api.themoviedb.org/3/genre/${type}/list?language=en`, options)
+    console.log(res)
+    let data = await res.json()
+    return data
+  } catch (error) {
+
+  }
+}
+export const fetchWithGenre = async({id} : {id : number}) => {
+  try {
+    let res = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.deschttps://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc&with_genres=${id}`, options)
+    console.log(res)
+    let data = await res.json()
+    return data
+  } catch (error) {
+
+  }
+}
+export const fetchPerson = async(id :  string | undefined) => {
+  console.log(id)
+  try {
+    let res = await fetch(`https://api.themoviedb.org/3/person/${id}?language=en-US'`, options)
+    let data = await res.json()
+    return data
+  } catch (error) {
+
+  }
+}
+export const fetchPersonsCasts = async(id: string | undefined) => {
+  try {
+    let res = await fetch(`https://api.themoviedb.org/3/person/${id}/movie_credits?language=en-US`, options)
+    let data = await res.json()
+    console.log(data)
+    return data
+  } catch (error) {
+
+  }
+}
+

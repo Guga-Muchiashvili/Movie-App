@@ -59,7 +59,7 @@ const CardElement = ({ data, i }: ImovieCardProps) => {
           </>
         ) : (
           <div className="w-full h-fit py-8 absolute bottom-0 flex flex-col items-center">
-            <TrailerButton type={type} data={data} size={'small'} />
+            <TrailerButton type={type !== 'genre' ? type : "movie"} data={data} size={'small'} />
           </div>
         )}{" "}
       </div>

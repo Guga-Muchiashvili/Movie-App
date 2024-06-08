@@ -3,7 +3,7 @@ import NavBar from "../components/navBarComponent";
 import SliderElement from "../components/sliderComponent";
 import imdb from "../public/photos/imdb.png";
 import useTrendingListQuery from "../queries/trendingMoviesQuery";
-import { fetchPopularMovies } from "../api/apiCalls";
+import { fetchPopularMovies } from "../actions/api/apiCalls";
 import usePopularMoviesQuery from "../queries/popularMoviesQuery";
 import usePopularTvShowsQuery from "../queries/popularTvShowsQuery";
 import { Link } from "react-router-dom";
@@ -13,6 +13,7 @@ import { ImovieData } from "../types/movieData.types";
 import TrailerButton from "../elements/trailerButton";
 import LoadingComponent from "../components/loadingComponent";
 import FooterComponent from "../components/footerComponent";
+import useGenreListQuery from "../queries/genreListQuery";
 
 const MainPage = () => {
   const { data: trendingList, isLoading  } =useTrendingListQuery();
@@ -30,7 +31,7 @@ const MainPage = () => {
   }
 
   return (
-    <div className="min-h-fit overflow-hidden relative pb-48">
+    <div className="min-h-fit overflow-hidden relative pb-48 bg-[#15141F]">
       <NavBar />
       <div className="w-screen h-screen bg-cover flex overflow-hidden justify-start relative">
         <div
@@ -64,12 +65,12 @@ const MainPage = () => {
             >
               {trendingList?.results[listNumber]?.overview}
             </h3>
-            <TrailerButton type={'movie'} data={trendingList && trendingList?.results[listNumber] || []} size={'normal'}/>
+            <TrailerButton type={'movie'} data={trendingList?.results[listNumber] || null} size={'normal'}/>
           </div>
           <div className="h-2/6 absolute bottom-1 w-full">
             <SliderElement
               type={'movie'}
-              data={trendingList?.results}
+              data={trendingList?.results || []}
               listNumber={listNumber}
               setListNumber={setListNumber}
             />
@@ -109,7 +110,7 @@ const MainPage = () => {
           <Link className="text-white cursor-pointer z-20" to={'/movie/popular'}>See all</Link>
           </div>
           <SliderElement
-            data={popularMovieList?.results}
+            data={popularMovieList?.results || []}
             listNumber={listNumberPopularMovie}
             ispopular={true}
             setListNumber={setNumberPopularMovie}
@@ -133,7 +134,7 @@ const MainPage = () => {
             Popular Tv series
           </h1>
           <SliderElement
-            data={populartvList?.results}
+            data={populartvList?.results || []}
             listNumber={listNumberPopularTv}
             ispopular={true}
             setListNumber={setNumberPopularTv}
