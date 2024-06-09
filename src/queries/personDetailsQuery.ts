@@ -6,6 +6,7 @@ const usePersonDetails = (id : string | undefined) => {
       queryKey: ['usePersonDetails', id],
       queryFn: async () => {
         const data = await fetchPerson(id);
+        console.log(data)
         return data
       },
     });

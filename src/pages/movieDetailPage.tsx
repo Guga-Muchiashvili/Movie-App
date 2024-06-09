@@ -26,6 +26,8 @@ const MovieDetailPage = () => {
       window.scrollTo(0, 0)
     },[id])
 
+    console.log(releatedData)
+
     if(isLoading) return <LoadingComponent/>
     
   return (
@@ -90,7 +92,7 @@ const MovieDetailPage = () => {
           <h1 className='text-2xl ml-10 font-roboto font-extrabold'>Relevant movies</h1>
           <div className='h-[300px] relative'>
 
-          <SliderElement isDetail={true}  data={releatedData || []} type={type || ""} />
+       {releatedData?.results?.length > 0 ? <SliderElement isDetail={true}  data={releatedData || []} type={type || ""} /> : <h1 className='text-3xl p-5 text-white'>No results found</h1> }
           </div>
         </div>
         <div className='min-h-96 relative flex flex-col  justify-start'>
