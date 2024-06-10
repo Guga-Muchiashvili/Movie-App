@@ -45,7 +45,7 @@ const NavBar = () => {
             <Link className=' duration-1000 border-white border-spacing-2 transition-all hover:text-gray-400' to={'/'} style={{ textShadow: "1px 1px 1px black" }} onMouseEnter={() => setadditionalLinks(true)} onMouseLeave={() => setadditionalLinks(false)}>Movies</Link>
            {additionalLinks && (
             <motion.div initial={{opacity : 0}} animate={{opacity : 1}} transition={{duration : 1}} className='absolute  duration-1000 top-5 left-4/5 translate-x-[-50%] transition-all group-hover:block rounded-lg py-4 flex bg-opacity-50 w-fit px-4 gap-5'   onMouseEnter={() => setadditionalLinks(true)} onMouseLeave={() => setadditionalLinks(false)}>
-              <div className='flex w-full h-fit py-3 bg-gray-900 bg-opacity-65 mt-2 px-2 rounded-md'>
+              <div className='flex w-full h-fit py-3 bg-gray-900 bg-opacity-65 mt-5 px-2 rounded-md'>
 
              <Link to={'/movie/popular'} className='hover:scale-105 duration-200  block w-24 py-1 px-2 text-white transition-all '>Popular</Link>
              <Link to={'/movie/now_playing'} className='hover:scale-105 duration-200  block w-24 py-1 px-2 text-white'>Now playing</Link>
@@ -58,7 +58,7 @@ const NavBar = () => {
         <Link className='duration-1000 border-white border-spacing-2 hover:text-gray-400' to={'/'} style={{ textShadow: "1px 1px 1px black" }} onMouseEnter={() => setadditionaltvseries(true)} onMouseLeave={() => setadditionaltvseries(false)}>Tv series</Link>
         {additionaltvseries && (
         <motion.div initial={{opacity : 0}} animate={{opacity : 1}} transition={{duration : 1}} className='absolute top-8  duration-1000 left-4/5 translate-x-[-50%] transition-all justify-center items-center group-hover:block rounded-lg py-4 flex bg-opacity-50 w-fit px-4 gap-5'   onMouseEnter={() => setadditionaltvseries(true)}  onMouseLeave={() => setadditionaltvseries(false)}>
-          <div className='flex w-full h-fit py-3 bg-gray-900 bg-opacity-65 mt-3 px-2 rounded-md'>
+          <div className='flex w-full h-fit py-3 bg-gray-900 bg-opacity-65 mt-5 px-2 rounded-md'>
           <Link to={'/tv/airing_today'} className='hover:scale-105 duration-200  block w-24 py-1 px-2 text-white transition-all '>Airing Today</Link>
         <Link to={'/tv/on_the_air'} className='hover:scale-105 duration-200  block w-24 py-1 px-2 text-white'>on the air</Link>
         <Link to={'/tv/top_rated'} className='hover:scale-105 duration-200  block w-24 py-1 px-2 text-white'>Top Rated</Link>
@@ -70,7 +70,7 @@ const NavBar = () => {
         <Link className='hover:text-gray-400 duration-1000 border-white border-spacing-2' to={'/'} style={{ textShadow: "1px 1px 1px black" }} onMouseEnter={() => setShowGenreList(true)} onMouseLeave={() => setShowGenreList(false)}>Genres</Link>
         {showGenreList && (
         <motion.div initial={{opacity : 0}} animate={{opacity : 1}} transition={{duration : 1}} className='absolute top-8   duration-1000 left-4/5 translate-x-[-30%] transition-all justify-start items-start group-hover:block rounded-lg py-4 flex bg-opacity-50 w-fit px-4 gap-5'   onMouseEnter={() => setShowGenreList(true)}  onMouseLeave={() => setShowGenreList(false)}>
-          <div className='flex w-full flex-wrap justify-center items-center h-fit py-3 bg-gray-900 bg-opacity-65 mt-3 px-2 rounded-md'>
+          <div className='flex w-full flex-wrap justify-center items-center h-fit py-3 bg-gray-900 bg-opacity-65 mt-6 px-2 rounded-md'>
           {genreListData?.map((item) => (
              <Link to={`/genre/${item.id}`} className='hover:scale-105 duration-200  block w-24 py-1 px-2 text-white transition-all '>{item.name}</Link>
           ))}
