@@ -15,7 +15,6 @@ const NavBar = () => {
   const [showGenreList, setShowGenreList] = useState(false)
   const [additionaltvseries, setadditionaltvseries] = useState(false)
   const {data:genreList} = useGenreListQuery({type : "movie"})
-
   const genreListData = genreList?.genres
   useEffect(() => {
     const handleScroll = () => {
@@ -40,7 +39,7 @@ const NavBar = () => {
             <h2 className='font-mono text-lg'><Link className='font-oswalid' to={'/'}>GuGa Movies</Link></h2>
         </div>
         <div className='flex items-center px-10'>
-    <ul className='font-oswalid text-white gap-8 hidden md:flex'>
+    <ul className='font-oswalid text-white gap-14 hidden md:flex'>
         <li className='relative'>
             <Link className=' duration-1000 border-white border-spacing-2 transition-all hover:text-gray-400' to={'/'} style={{ textShadow: "1px 1px 1px black" }} onMouseEnter={() => setadditionalLinks(true)} onMouseLeave={() => setadditionalLinks(false)}>Movies</Link>
            {additionalLinks && (

@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 import NavBar from '../components/navBarComponent'
-import fetchMovideWithId from '../queries/findMovieWithIdQuery'
-import fetchCreditswithMovide from '../queries/credithsWithMovide'
 import CreditswithMovide from '../queries/credithsWithMovide'
 import { FaDollarSign, FaStar } from 'react-icons/fa6'
-import { useScroll } from 'framer-motion'
 import SimilarDataQuery from '../queries/fetchSimilarQuery'
 import SliderElement from '../components/sliderComponent'
-import errorimg from '../../public/not found.png'
+import errorimg from '../public/photos/not_found.png'
 import { ICast } from '../types/movieData.types'
 import LoadingComponent from '../components/loadingComponent'
+import { Link } from 'react-router-dom'
+import FetchMovideWithId from '../queries/findMovieWithIdQuery'
 
 const MovieDetailPage = () => {
     const {id, type} = useParams<{id : string, type : string}>()
-    const {data} = fetchMovideWithId(id, type)
+    const {data} = FetchMovideWithId(id, type)
     const {data:credits} = CreditswithMovide(id, type)
     const {data:releatedMovies, isLoading} = SimilarDataQuery(id, type)
     const creditsData : ICast[] | undefined = credits?.cast
@@ -47,8 +46,8 @@ const MovieDetailPage = () => {
           }}
         >
           <div className='w-full min-h-screen  flex-col  text-white font-roboto bg-[#15141F]  absolute ' style={{ textShadow: "1px 1px 1px black" }}>
-            <div className='w-full rounded-md h-[470px] relative lg:h-[560px]' style={{backgroundImage : `url(${data?.poster_path ? `https://image.tmdb.org/t/p/w500/${data?.poster_path}` : `https://www.shepherdsearchgroup.com/wp-content/themes/shepherd/images/no-image-found-360x250.png`},)`, backgroundSize: "cover", backgroundAttachment : "fixed", backgroundPosition : "top"}} />
-            <img className='hidden lg:block w-80 h-[450px] absolute left-5 top-20 rounded-lg' src={data?.backdrop_path ? `https://image.tmdb.org/t/p/w500/${data?.backdrop_path}` : `https://www.shepherdsearchgroup.com/wp-content/themes/shepherd/images/no-image-found-360x250.png`} alt="" />
+            <div className='w-full rounded-md h-[470px]  relative lg:h-[560px]' style={{backgroundImage : `url(${data?.poster_path ? `https://image.tmdb.org/t/p/w500/${data?.poster_path}` : `https://www.shepherdsearchgroup.com/wp-content/themes/shepherd/images/no-image-found-360x250.png`},)`, backgroundSize: "cover", backgroundAttachment : "fixed", backgroundPosition : "center"}} />
+            <img className='hidden lg:block w-80 h-[450px] lg:w-[450px] lg:ml-10 absolute left-5 top-20 rounded-lg' src={data?.backdrop_path ? `https://image.tmdb.org/t/p/w500/${data?.backdrop_path}` : `https://www.shepherdsearchgroup.com/wp-content/themes/shepherd/images/no-image-found-360x250.png`} alt="" />
             <div className='w-full p-3 px-6 flex flex-col gap-2 lg:absolute top-20 right-4 lg:w-1/2  lg:bg-opacity-25 rounded-lg'>
             <div className=' top-0 left-0 h-120 flex items-start border-b-gray-500 border-b-[1px] pb-3 flex-col gap-4 text-white font-oswalid' style={{ textShadow: "1px 1px 1px black" }}>
               <div className='flex items-center gap-5'>
@@ -76,7 +75,7 @@ const MovieDetailPage = () => {
                 <div className='flex gap-2 flex-wrap'>
 
                 {data?.genres && data?.genres.map((item) => (
-                  <h4 className='text-gray-400 lg:text-white font-oswalid bg-gray-400 py-1 px-2 rounded-md bg-opacity-35 cursor-pointer'>{item.name}</h4>
+                  <Link to={`/genre/${item.id}`} className='text-gray-400 lg:text-white font-oswalid bg-gray-400 py-1 px-2 rounded-md bg-opacity-35 cursor-pointer'>{item.name}</Link>
                 ))}
                 </div>
 
@@ -89,14 +88,13 @@ const MovieDetailPage = () => {
              </div>
           </div>
           <div className='min-h-96 relative flex flex-col  justify-start lg:mt-6'>
-          <h1 className='text-2xl ml-10 font-roboto font-extrabold'>Relevant movies</h1>
+          <h1 className='text-2xl ml-10 md:ml-48 font-roboto font-extrabold'>Relevant movies</h1>
           <div className='h-[300px] relative'>
-
-       {releatedData?.results?.length > 0 ? <SliderElement isDetail={true}  data={releatedData || []} type={type || ""} /> : <h1 className='text-3xl p-5 text-white'>No results found</h1> }
+       {releatedData?.length  && releatedData?.length > 0 ? <SliderElement isDetail={true}  data={releatedData || []} type={type || ""} /> : <h1 className='text-3xl p-5 text-white'>No results found</h1> }
           </div>
         </div>
         <div className='min-h-96 relative flex flex-col  justify-start'>
-          <h1 className='text-2xl ml-10 font-roboto font-extrabold'>People in movie</h1>
+          <h1 className='text-2xl ml-10 font-roboto  md:ml-48 font-extrabold'>People in movie</h1>
           <div className='mt-1 h-[300px] relative'>
           <SliderElement isCast={true}  data={creditsData || [] } type={type || ""} />
           </div>

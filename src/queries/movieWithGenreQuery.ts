@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchGenres, fetchMovieList, fetchPopularMovies, fetchTrendingElements, fetchWithGenre } from "../actions/api/apiCalls";
-import { ImovieData, ItrendingResponse } from "../types/movieData.types";
+import {  fetchWithGenre } from "../actions/api/apiCalls";
+import { ItrendingResponse } from "../types/movieData.types";
 
-const movieWithGenreQuery = ({id} : any) => {
+const MovieWithGenreQuery = ({id, page} : {id : number | undefined, page : number}) => {
     return useQuery<ItrendingResponse>({
-      queryFn: () => fetchWithGenre({id}),
-      queryKey: ['movieWithGenreQuery',id, ],
+      queryFn: () => fetchWithGenre({id, page}),
+      queryKey: ['movieWithGenreQuery',id,page ],
     });
   };
   
-  export default movieWithGenreQuery;
+  export default MovieWithGenreQuery;

@@ -122,3 +122,8 @@ export interface ICast {
   vote_average: number;
   vote_count: number;
 }
+
+export interface IFilterForm {
+  type : string,
+  genres : string[]
+}

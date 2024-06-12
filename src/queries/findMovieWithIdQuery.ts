@@ -1,12 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchMovidewithId, fetchTrendingElements } from "../actions/api/apiCalls";
-import { IMovieDetails, ImovieData, ItrendingResponse } from "../types/movieData.types";
 
-const fetchMovideWithId = (id:  string | undefined, type : string | undefined) => {
-    return useQuery<IMovieDetails | {status_code : number, status_message : string, success : boolean}>({
+import { useQuery } from "@tanstack/react-query";
+import { fetchMovidewithId, } from "../actions/api/apiCalls";
+import { IMovieDetails,  } from "../types/movieData.types";
+
+const FetchMovideWithId = (id:  string | undefined, type : string | undefined) => {
+    return useQuery<IMovieDetails>({
       queryFn: () => fetchMovidewithId({id, type}),
-      queryKey: ['fetchMovideWithId',id],
+      queryKey: ['fetchMovideWithId',id, type],
     });
   };
   
-  export default fetchMovideWithId;
+  export default FetchMovideWithId;

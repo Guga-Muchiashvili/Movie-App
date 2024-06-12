@@ -7,23 +7,24 @@ import NavBar from '../components/navBarComponent';
 import CardElement from '../elements/cardElement';
 import FooterComponent from '../components/footerComponent';
 import { IoArrowBackCircleOutline, IoArrowForwardCircleOutline } from 'react-icons/io5';
-import FilterComponent from '../components/filterComponent';
+import FilterComponent from '../components/filterComponent/filterComponent';
 import LoadingComponent from '../components/loadingComponent';
-import movieWithGenreQuery from '../queries/movieWithGenreQuery';
+import MovieWithGenreQuery from '../queries/movieWithGenreQuery';
 
 
 const AllMoviesPage = () => {
   const { id } = useParams();
   const { type } = useParams();
   const [page, setPage] = useState(1);
+  console.log(page)
   const { data, isLoading } = useMovieListQuery({ type: id, page, mut : type  });
-  const {data: genreData} = movieWithGenreQuery({id})
-  let totalPages = genreData?.results.length ? genreData?.total_pages : data?.total_pages
+  const {data: genreData} = MovieWithGenreQuery({id, page})
+  const totalPages = genreData?.results.length ? genreData?.total_pages : data?.total_pages
   const paginationRef = useRef<HTMLDivElement>(null);
   const [translateX, setTranslateX] = useState<number>(0)
 
 
-  console.log(totalPages)
+  console.log(data)
 
   console.log(genreData)
 
@@ -47,7 +48,7 @@ const AllMoviesPage = () => {
 };
 
 
-  const handlePageChange = (newPage : any) => {
+  const handlePageChange = (newPage : number) => {
     setPage(newPage);
   };
 
