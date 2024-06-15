@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { ImovieData } from '../types/movieData.types';
+import { IFilterForm, ImovieData } from '../types/movieData.types';
 import useMovieListQuery from '../queries/movieListQuery';
 import NavBar from '../components/navBarComponent';
 import CardElement from '../elements/cardElement';
@@ -10,18 +10,31 @@ import { IoArrowBackCircleOutline, IoArrowForwardCircleOutline } from 'react-ico
 import FilterComponent from '../components/filterComponent/filterComponent';
 import LoadingComponent from '../components/loadingComponent';
 import MovieWithGenreQuery from '../queries/movieWithGenreQuery';
+import { useAppSelector } from '../redux/hooks';
 
 
 const AllMoviesPage = () => {
   const { id } = useParams();
   const { type } = useParams();
   const [page, setPage] = useState(1);
-  console.log(page)
   const { data, isLoading } = useMovieListQuery({ type: id, page, mut : type  });
   const {data: genreData} = MovieWithGenreQuery({id, page})
   const totalPages = genreData?.results.length ? genreData?.total_pages : data?.total_pages
   const paginationRef = useRef<HTMLDivElement>(null);
   const [translateX, setTranslateX] = useState<number>(0)
+
+  const filteredData = useAppSelector((state) => state.movies.movieList)
+  console.log(filteredData)
+
+  const defaultValues : IFilterForm = {
+    type,
+    release_datelgre : "",
+    release_datelte : "",
+    vote_averagegte : "",
+    vote_averagelte : "",
+    with_genres : "",
+    with_origin_country : ""
+  }
 
 
   console.log(data)
@@ -58,8 +71,8 @@ const AllMoviesPage = () => {
       
       <NavBar />
       <div className='w-full py-20 flex flex-col justify-center items-center'>
-        <div className='w-full h-48 bg-blue-800'>
-          <FilterComponent/>
+        <div className='w-full h-48'>
+          <FilterComponent defaultValues={defaultValues} page={page} />
         </div>
         <div className='w-full min-h-screen flex flex-wrap px-9 justify-center gap-8 py-5'>
         {(data?.results && data.results.length > 0) ? (

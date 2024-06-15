@@ -15,8 +15,6 @@ const CardElement = ({ data, i }: ImovieCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const {type} = useParams()
 
-  console.log(data)
-
   return (
     <motion.div
       key={i}

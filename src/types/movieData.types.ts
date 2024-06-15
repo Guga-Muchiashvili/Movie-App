@@ -124,6 +124,11 @@ export interface ICast {
 }
 
 export interface IFilterForm {
-  type : string,
-  genres : string[]
+  type: string | undefined,
+  with_genres?: string,
+  release_datelte?: string | undefined,
+  release_datelgre?: string | undefined,
+  vote_averagegte?: string,
+  vote_averagelte?: string,
+  with_origin_country?: string,
 }

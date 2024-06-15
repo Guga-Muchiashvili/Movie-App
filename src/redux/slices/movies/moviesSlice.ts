@@ -3,11 +3,11 @@ import { RootState } from '../../store'
 
 
 interface CounterState {
-    movieList: object[]
+    movieList: object
 }
 
 const initialState: CounterState = {
-  movieList: [],
+  movieList: {},
 
 }
 
@@ -15,9 +15,11 @@ export const moviesSlice = createSlice({
   name: 'movieList',
   initialState,
   reducers: {
-    
+    setMovieData : (state, action) => {
+      state.movieList = action.payload
+    }
   },
 })
 
-
+export const {setMovieData} = moviesSlice.actions
 export default moviesSlice.reducer

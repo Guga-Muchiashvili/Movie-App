@@ -1,3 +1,5 @@
+import { IFilterForm } from "../../types/movieData.types";
+
 const options = {
     method: 'GET',
     headers: {
@@ -109,12 +111,11 @@ export const fetchGenres = async({type} : {type : string}) => {
 console.log(error)
   }
 }
-export const fetchWithGenre = async({id, page} : {id : number | undefined, page : number}) => {
+export const fetchWithGenre = async({id, page} : {id : string | undefined, page : number}) => {
   console.log('page', page)
   try {
     const res = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.deschttps://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc&with_genres=${id}`, options)
     const data = await res.json()
-    console.log(data)
     return data
   } catch (error) {
 console.log(error)
@@ -141,3 +142,25 @@ console.log(error)
   }
 }
 
+export const fetchCountryList = async() => {
+  try {
+    const res = await fetch(`https://api.themoviedb.org/3/configuration/countries?language=en-US`, options)
+    const data = await res.json()
+    return data
+  } catch (error) {
+console.log(error)
+  }
+}
+
+
+export const fetchWithFilter = async({type, release_datelgre, release_datelte, vote_averagegte, vote_averagelte,with_genres, with_origin_country, page} : IFilterForm & {page : number | undefined}) => {
+  console.log('page', page)
+  try {
+    const res = await fetch(`https://api.themoviedb.org/3/discover/${type}?include_adult=false&include_video=false&language=en-US&page=${page}&release_date.gte=${release_datelgre}&release_date.lte=${release_datelte}&sort_by=popularity.desc&vote_average.gte=${vote_averagegte}&vote_average.lte=${vote_averagelte}&with_genres=${with_genres}&with_origin_country=${with_origin_country}`, options)
+    const data = await res.json()
+    console.log(data)
+    return data
+  } catch (error) {
+console.log(error)
+  }
+}
