@@ -13,7 +13,6 @@ import { ImovieData } from "../types/movieData.types";
 import TrailerButton from "../elements/trailerButton";
 import LoadingComponent from "../components/loadingComponent";
 import FooterComponent from "../components/footerComponent";
-import useGenreListQuery from "../queries/genreListQuery";
 
 const MainPage = () => {
   const { data: trendingList, isLoading  } =useTrendingListQuery();

@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import imdb from "../public/photos/imdb.png";
-import { IMovieDetails, ImovieData } from "../types/movieData.types";
-import { IoPlay } from "react-icons/io5";
+import { ICast, ImovieData } from "../types/movieData.types";
 import TrailerButton from "./trailerButton";
 import {motion} from 'framer-motion'
 import { useParams } from "react-router";
 
 interface ImovieCardProps {
-  data: ImovieData ;
+  data: ImovieData | ICast ;
   i: number
 }
 
 const CardElement = ({ data, i }: ImovieCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const {type} = useParams()
+
+
 
   return (
     <motion.div
@@ -57,7 +57,7 @@ const CardElement = ({ data, i }: ImovieCardProps) => {
           </>
         ) : (
           <div className="w-full h-fit py-8 absolute bottom-0 flex flex-col items-center">
-            <TrailerButton type={type !== 'genre' ? type : "movie"} data={data} size={'small'} />
+          <TrailerButton type={!type ? 'movie' :  type !== 'genre' && type !== 'person' ? type : "movie"} data={data} size={'small'} />
           </div>
         )}{" "}
       </div>

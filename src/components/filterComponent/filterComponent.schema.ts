@@ -6,7 +6,7 @@ const schema = yup.object().shape({
     .required('Please select a type')
     .oneOf(['movie', 'tv'], 'Invalid selection'),
   with_genres: yup.string(),
-  release_dategte: yup.string(),
+  release_datelgre: yup.string(),
   release_datelte: yup.string(),
   vote_averagegte: yup
     .string()

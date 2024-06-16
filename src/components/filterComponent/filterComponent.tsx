@@ -1,66 +1,58 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useEffect, useState } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import schema from './filterComponent.schema';
 import useGenreListQuery from '../../queries/genreListQuery';
-import { IFilterForm } from '../../types/movieData.types';
 import useCountryListQuery from '../../queries/countryListQuery';
-import { useParams } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { IFilterForm } from '../../types/movieData.types';
 import { setMovieData } from '../../redux/slices/movies/moviesSlice';
 import { useAppDispatch } from '../../redux/hooks';
+import debounce from 'lodash/debounce'
+import { useParams } from 'react-router';
 
-const FilterComponent = ({page, defaultValues} : {page : number, defaultValues : IFilterForm}) => {
-  const { register, handleSubmit, watch, control, reset, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
+const FilterComponent = ({ defaultValues }: { defaultValues: IFilterForm }) => {
+  const { register, handleSubmit, reset} = useForm({
+    resolver: yupResolver(schema),
   });
-  console.log(errors)
-  
-  const listType = watch('type');
-  const genres = watch('with_genres')
 
-  const { data: genreList } = useGenreListQuery({ type: listType });
+  const {type} = useParams()
+
+
+  const { data: genreList } = useGenreListQuery({ type });
   const { data: countryData } = useCountryListQuery();
-  const [genre, setgenres] = useState<string>('')
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+
+  const debouncedSubmit = debounce((val: IFilterForm) => {
+    console.log(val)
+    const data: IFilterForm = {
+      ...val,
+    };
+    dispatch(setMovieData({ ...data}));
+  }, 500)
 
   useEffect(() => {
-    reset(defaultValues)
-  },[])
-  
-  useEffect(() => {
-    if (genres) {
-      setgenres((prev : string) => prev ? `${prev}-${genres}` : genres);
-    }
-  }, [genres]);
+    reset(defaultValues);
+  }, []);
 
-  useEffect(() => {
-    setgenres('')
-  },[listType])
 
-  const submit = (val: IFilterForm) => {
-   const data : IFilterForm = {
-    ...val,
-    with_genres : genre,
-   }
-   console.log(data)
-   dispatch(setMovieData({...data, page : page}))
+
+  const onSubmit = (formData: IFilterForm) => {
+    debouncedSubmit(formData);
   };
 
   return (
-    <form onChange={handleSubmit(submit)} className='flex w-full h-full items-center justify-center min-h-fit py-6 flex-wrap gap-5'>
+    <form onChange={handleSubmit(onSubmit)} className='flex w-full h-full items-center justify-center min-h-fit py-6 flex-wrap gap-5'>
       <select className='w-40 h-12 px-2 rounded-md outline-none border-blue-400 bg-slate-600 text-blue-400 bg-opacity-50 border' id="type" {...register('type')}>
-        <option className='bg-slate-700' value="movie">Movie</option>
-        <option className='bg-slate-700' value="tv">TV</option>
+        <option className='bg-slate-700' value={type}>{type}</option>
       </select>
       
       <select className='w-40 h-12 px-2 rounded-md outline-none border-blue-400 bg-slate-600 text-blue-400 bg-opacity-50 border' id="genres" {...register('with_genres')}>
         {Array.isArray(genreList?.genres) && genreList.genres.map((genre) => (
-          <option  className='bg-slate-700' key={genre.id} value={genre.id}>{genre.name}</option>
+          <option className='bg-slate-700' key={genre.id} value={genre.id}>{genre.name}</option>
         ))}
       </select>
       
-      <input className='w-40 h-12 px-2 rounded-md outline-none border-blue-400 bg-slate-600 text-blue-400 bg-opacity-50 border' type="date" {...register('release_dategte')} placeholder="Start Date" />
+      <input className='w-40 h-12 px-2 rounded-md outline-none border-blue-400 bg-slate-600 text-blue-400 bg-opacity-50 border' type="date" {...register('release_datelgre')} placeholder="Start Date" />
       <input className='w-40 h-12 px-2 rounded-md outline-none border-blue-400 bg-slate-600 text-blue-400 bg-opacity-50 border' type="date" {...register('release_datelte')} placeholder="End Date" />
       <input className='w-40 h-12 px-2 rounded-md outline-none border-blue-400 bg-slate-600 text-blue-400 bg-opacity-50 border' type="text" {...register('vote_averagegte')} placeholder="Min IMDB" />
       <input className='w-40 h-12 px-2 rounded-md outline-none border-blue-400 bg-slate-600 text-blue-400 bg-opacity-50 border' type="text" {...register('vote_averagelte')} placeholder="Max IMDB" />
@@ -71,7 +63,7 @@ const FilterComponent = ({page, defaultValues} : {page : number, defaultValues :
         ))}
       </select>
       
-      </form>
+    </form>
   );
 };
 

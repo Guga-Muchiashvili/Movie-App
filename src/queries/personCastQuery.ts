@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import personImageQuery from "../queries/peopleImageQuery";
-import { fetchPersomImages, fetchPersonsCasts } from "../actions/api/apiCalls";
+import { ICredits } from "../types/movieData.types";
+import { fetchPersonsCasts } from "../actions/api/apiCalls";
 
 
 const usePersonCastList = (id : string | undefined) => {
-    return useQuery({
+    return useQuery<ICredits>({
       queryKey: ['usePersonCastList', id],
       queryFn: async () => {
         const data = await fetchPersonsCasts(id);
