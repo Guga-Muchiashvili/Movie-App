@@ -66,6 +66,10 @@ const AllMoviesPage = () => {
     }
   };
 
+  useEffect(() => {
+    setDebouncedFilteredData([])
+  },[id, type])
+
   const handleNextClick = () => {
     const paginationWidth = paginationRef.current?.getBoundingClientRect().width;
     if (paginationWidth && translateX < paginationWidth - 350) {
@@ -114,7 +118,7 @@ const AllMoviesPage = () => {
               className='flex mt-5 transition-all duration-700'
               style={{ display: 'flex', transform: `translateX(${-translateX}px)` }}
             >
-              {Array.from({ length: totalPages ?? 0 }, (_, index) => (
+              {Array.from({ length: filterData?.total_pages ||  totalPages || 0 }, (_, index) => (
                 <button
                   key={index}
                   className={`mx-1 px-2 py-1 w-10 h-10 rounded-full border  ${

@@ -13,6 +13,7 @@ const NavBar = () => {
   const [scrollOpacity, setScrollOpacity] = useState(0.50);
   const [additionalLinks, setadditionalLinks] = useState(false)
   const [showGenreList, setShowGenreList] = useState(false)
+  const[showSearch, setShowSearch] = useState(false)
   const [additionaltvseries, setadditionaltvseries] = useState(false)
   const {data:genreList} = useGenreListQuery({type : "movie"})
   const genreListData = genreList?.genres
@@ -78,8 +79,13 @@ const NavBar = () => {
         )}
           </ul>
       </div>
+      
         <div className='flex items-center gap-8 text-white text-3xl'>
-        <IoSearch className='pl-1 md:border-l-[1px] xl:text-xl cursor-pointer' />
+          <div className='flex gap-1 h-full items-center'>
+          {showSearch &&  <motion.input initial={{width : "0px"}} animate={{width : "250px"}} transition={{duration : .5, ease : "easeIn"}} type="text" name="" id="" placeholder='search for movie' className='w-80 pl-2 text-sm h-8 bg-transparent border-b-blue-500 border-b-2 outline-none' />}
+          <IoSearch className='pl-1 md:border-l-[1px] xl:text-xl cursor-pointer' onClick={() => setShowSearch(Prev => !Prev)}/>
+          </div>
+          
         <MdMenu className='text-4xl md:hidden' onClick={() => setShowModal(!showModal)}/>
         </div>
 

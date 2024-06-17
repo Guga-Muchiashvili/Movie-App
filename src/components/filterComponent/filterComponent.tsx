@@ -47,6 +47,7 @@ const FilterComponent = ({ defaultValues }: { defaultValues: IFilterForm }) => {
       </select>
       
       <select className='w-40 h-12 px-2 rounded-md outline-none border-blue-400 bg-slate-600 text-blue-400 bg-opacity-50 border' id="genres" {...register('with_genres')}>
+      <option className='bg-slate-700' value={''}>default</option>
         {Array.isArray(genreList?.genres) && genreList.genres.map((genre) => (
           <option className='bg-slate-700' key={genre.id} value={genre.id}>{genre.name}</option>
         ))}
@@ -58,6 +59,7 @@ const FilterComponent = ({ defaultValues }: { defaultValues: IFilterForm }) => {
       <input className='w-40 h-12 px-2 rounded-md outline-none border-blue-400 bg-slate-600 text-blue-400 bg-opacity-50 border' type="text" {...register('vote_averagelte')} placeholder="Max IMDB" />
       
       <select className='w-40 h-12 px-2 rounded-md outline-none border-blue-400 bg-slate-600 bg-opacity-50 text-blue-400  border' {...register('with_origin_country')} >
+      <option className='bg-slate-700'></option>
         {Array.isArray(countryData) && countryData.map((item) => (
           <option className='bg-slate-700' key={item.iso_3166_1} value={item.iso_3166_1}>{item.english_name}</option>
         ))}
