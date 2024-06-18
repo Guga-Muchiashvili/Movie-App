@@ -90,7 +90,7 @@ const MovieDetailPage = () => {
           <div className='min-h-96 relative flex flex-col  justify-start lg:mt-6'>
           <h1 className='text-2xl ml-10 md:ml-48 font-roboto font-extrabold'>Relevant movies</h1>
           <div className='h-[300px] relative'>
-       {releatedData?.length  && releatedData?.length > 0 ? <SliderElement isDetail={true}  data={releatedData || []} type={type || ""} /> : <h1 className='text-3xl p-5 text-white'>No results found</h1> }
+       {releatedData?.length  && releatedData?.length > 0 ? <SliderElement isDetail={true}  data={releatedData || []} type={type || ""} /> : <h1 className='text-xl pt-7 text-gray-400 h-full text-center'>No results found</h1> }
           </div>
         </div>
         <div className='min-h-96 relative flex flex-col  justify-start'>

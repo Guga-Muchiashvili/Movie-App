@@ -21,7 +21,7 @@ const CardElement = ({ data, i }: ImovieCardProps) => {
       initial = {{opacity : 0, translateY : -10, scale : 1.05 }}
       animate ={{opacity : 1, translateY : 0, scale : 1}}
       transition={{duration : .8, delay : 0.1 * i, ease : "easeInOut"}}
-      className="w-full relative cursor-pointer transition-all duration-1000 sm:w-2/6 md:w-2/5 lg:w-[46%] xl:w-72 h-[400px] rounded-sm overflow-hidden text-white flex flex-col gap-1 font-oswalid text-2xl"
+      className="w-full relative cursor-pointer transition-all duration-1000 sm:w-[45%] md:w-2/5 lg:w-[40%] xl:w-72 h-[400px] rounded-sm overflow-hidden text-white flex flex-col gap-1 font-oswalid text-2xl"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

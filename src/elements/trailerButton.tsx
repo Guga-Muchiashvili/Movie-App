@@ -17,7 +17,7 @@ const TrailerButton = ({size, data, type } : {size : string, data: ImovieData | 
     className={`bg-yellow-400 hover:scale-90 z-10 transition-all duration-1000 px-3 py-2 ${size === 'small' ? 'lg:py-2 px-4 text-sm text-gray-800' : "lg:py-4 lg:px-7 text-xl"} rounded-md text-black font-bold font-sans flex items-center gap-2`} 
     onClick={() => {
       dispatch(setMovieData(''))
-      navigate(`/detail/${type}/${data?.id && data.id }`)}}>
+      navigate(`/detail/${data?.media_type || type}/${data?.id && data.id }`)}}>
     <IoPlay />
     Watch Trailer
 </motion.button>    

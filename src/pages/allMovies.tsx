@@ -27,7 +27,7 @@ const AllMoviesPage = () => {
 
   const debounce = (func: (newData: any) => void, delay: number) => {
     let debounceTimer: number;
-    return function (this: any, ...args: any[]) {
+    return function (this: any, ...args: []) {
       const context = this;
       clearTimeout(debounceTimer);
       debounceTimer = window.setTimeout(() => func.apply(context, args), delay);
@@ -54,7 +54,6 @@ const AllMoviesPage = () => {
     with_origin_country: "",
   };
 
-  console.log(filterData);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -89,7 +88,7 @@ const AllMoviesPage = () => {
         <div className='w-full h-48'>
           {type !== 'genre' &&  <FilterComponent defaultValues={defaultValues} />}
         </div>
-        <div className='w-full min-h-screen flex flex-wrap px-9 justify-center gap-8 py-5'>
+        <div className='w-full min-h-screen flex flex-wrap px-9 mt-80 sm:mt-24 md:mt-12 justify-center gap-8 py-5'>
           {(filterData?.results && filterData.results.length > 0) ? (
             filterData.results.map((item, i) => (
               <CardElement i={i} data={item} key={i} />

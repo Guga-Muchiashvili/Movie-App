@@ -29,20 +29,20 @@ const PersonDataPage = () => {
       <div className="w-full h-2/3 flex flex-col lg:flex-row items-center justify-center">
         <div className="w-full bg-green h-2/3 flex justify-center md:justify-start items-center px-2 md:px-10 lg:px-24 py-20 gap-6 bg-[#15141F]">
           <img
-            className="md:w-36 md:h-36 h-32 w-32 rounded-full shadow-md shadow-black"
+            className="md:w-32 md:h-32 h-28 w-28 rounded-full shadow-md shadow-black"
             src={`https://image.tmdb.org/t/p/original/${personData?.profile_path}`}
             alt=""
           />
           <div className="flex flex-col text-white font-bold font-roboto text-xl gap-5">
           <h2
-              className="flex gap-2 font-oswalid text-xl md:text-3xl"
+              className="flex gap-2 font-oswalid text-xl md:text-2xl"
               style={{ textShadow: "2px 2px 2px black" }}
             >
               Name:{" "}
               <h1 className="text-gray-300">{personData?.name || "unknown"}</h1>
             </h2>
             <h2
-              className="flex gap-2 font-oswalid text-xl md:text-3xl"
+              className="flex gap-2 font-oswalid text-xl md:text-2xl"
               style={{ textShadow: "2px 2px 2px black" }}
             >
               Birth Date:{" "}
@@ -62,7 +62,7 @@ const PersonDataPage = () => {
         </div>
       </div>
       <div className="w-full">
-        <div className="h-fit py-5 flex flex-wrap w-full relative justify-center gap-5">
+        <div className="h-fit py-5 flex flex-wrap w-full relative justify-center gap-5 px-5">
           {filteredMovies.length > 0 ? (
             filteredMovies.map((item, i) => (
               <CardElement data={item} key={item.id} i={i} />

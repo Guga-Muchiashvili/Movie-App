@@ -130,6 +130,24 @@ export const fetchPerson = async(id :  string | undefined) => {
 console.log(error)
   }
 }
+export const fetchWithKeyword = async(keyword :  string | undefined) => {
+  console.log(keyword)
+  try {
+    const res = await fetch(`https://api.themoviedb.org/3/search/multi?query=${keyword}&api_key=78724e3c33488a5fd626910e6f2e6377`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ODcyNGUzYzMzNDg4YTVmZDYyNjkxMGU2ZjJlNjM3NyIsInN1YiI6IjY2NTQzY2Q5ZDAwMTg4NDgwZDA2YjE4NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.56_0hRdHSjkbdVJkVY5bN3BVFCzHVRtE5-hmiNcIgcI',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const data = await res.json()
+    return data
+  } catch (error) {
+console.log(error)
+  }
+}
+
 export const fetchPersonsCasts = async(id: string | undefined) => {
   try {
     const res = await fetch(`https://api.themoviedb.org/3/person/${id}/movie_credits?language=en-US`, options)
@@ -153,7 +171,6 @@ console.log(error)
 
 
 export const fetchWithFilter = async({type, release_datelgre, release_datelte, vote_averagegte, vote_averagelte,with_genres, with_origin_country, page} : IFilterForm) => {
-  console.log(release_datelgre)
   try {
     const res = await fetch(`https://api.themoviedb.org/3/discover/${type}?include_adult=false&include_video=false&language=en-US&page=${Number(page)}&release_date.gte=${release_datelgre}&release_date.lte=${release_datelte}&sort_by=popularity.desc&vote_average.gte=${vote_averagegte}&vote_average.lte=${vote_averagelte}&with_genres=${with_genres}&with_origin_country=${with_origin_country}`, options)
     const data = await res.json()
